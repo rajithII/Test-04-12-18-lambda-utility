@@ -131,7 +131,8 @@ do
       echo "worked"
         repo_name=$(echo "$line" | cut -d':' -f1)
         lambda_name=$(echo "$line" | cut -d':' -f2)
-        if [ "$lambda_name" == "$param" ]
+        echo "repo:$repo_name"
+        if [ "$lambda_name" = "$param" ]
             then
                 echo "reponame: $repo_name"   
                 echo "lambdaname: $lambda_name"   
