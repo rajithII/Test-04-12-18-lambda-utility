@@ -119,7 +119,7 @@ build_lambda (){
     cd ..
 }
 
-#Read lambda function name and corresponding subdirectory in the git repository
+#This will accept a repo parameter from jenkins and call corresponding lambda function to build.
 for line in `cat lambdalist.txt`
 do       
     repo_name=$(echo "$line" | cut -d':' -f1)
