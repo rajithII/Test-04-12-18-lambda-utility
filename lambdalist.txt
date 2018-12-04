@@ -1,2 +1,2 @@
-lambda:test-lamda-utility1
-lambda1:test-lamda-utility2
+lambda:test-lambda-utility1
+lambda1:test-lambda-utility2

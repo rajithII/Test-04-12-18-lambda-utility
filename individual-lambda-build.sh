@@ -121,7 +121,6 @@ build_lambda (){
 
 #This will accept a repo parameter from jenkins and call corresponding lambda function to build.
 split () { 
-echo "parameter:$1"
 IFS=','
 read -ra ADDR <<< "$Lambda"
 for param in "${ADDR[@]}"; do
