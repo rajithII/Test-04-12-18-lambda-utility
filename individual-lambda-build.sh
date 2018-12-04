@@ -142,3 +142,5 @@ split_parameter () {
         split $param
     done
 }
+
+split_parameter 
