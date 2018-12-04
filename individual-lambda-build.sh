@@ -139,6 +139,6 @@ split_parameter () {
     read -ra ADDR <<< "$Lambda" # str is read into an array as tokens separated by IFS
     for param in "${ADDR[@]}"; do # access each element of array
         echo "$param"
-        split param
+        split $param
     done
 }
