@@ -3,14 +3,14 @@
 #Update Lamda Alias with the new version created
 update_lambda_alias () {
     echo "Creating new version.."
-    aws lambda publish-version --function-name $1 --region us-west-2 --profile gunbro > version2.txt
+    aws lambda publish-version --function-name $1 --region us-west-2  > version2.txt
     if [ $? -eq 0 ]
     then
         version2=$(cat version2.txt | grep "Version" | awk '{ print $2 }' | tr -d '",')       
         echo "Version created successfully!. New version is: '$version2' "        
         echo "Updating lambda alias...."        
         sleep 30s
-        aws lambda update-alias --function-name $1 --name dev --function-version $version2 --region us-west-2 --profile gunbro
+        aws lambda update-alias --function-name $1 --name dev --function-version $version2 --region us-west-2 
         if [ $? -eq 0 ]
             then                
                 echo "Updated 'Dev' alias with new version '$version2'"                
@@ -25,13 +25,13 @@ update_lambda_alias () {
 #Create Lambda Alias and update the alias with the new version
 create_lambda_alias () {   
     echo "Creating new version.."   
-    aws lambda publish-version --function-name $1 --region us-west-2 --profile gunbro > version1.txt
+    aws lambda publish-version --function-name $1 --region us-west-2  > version1.txt
     if [ $? -eq 0 ]
     then
         version1=$(cat version1.txt | grep "Version" | awk '{ print $2 }' | tr -d '",')           
         echo "Version created successfully!. New version is: '$version1' "       
         echo "Creating new lambda alias...."         
-        aws lambda create-alias --function-name $1 --name dev --function-version $version1 --region us-west-2 --profile gunbro
+        aws lambda create-alias --function-name $1 --name dev --function-version $version1 --region us-west-2 
     if [ $? -eq 0 ]
         then               
             echo "Created lamda alias 'Dev' with the new version '$version1'"              
@@ -46,7 +46,7 @@ create_lambda_alias () {
 
 #Check Lambda Alias
 check_lambda_alias () {
-    alias=$(aws lambda list-aliases --function-name $1 --region us-west-2 --profile gunbro | grep -i name | grep dev | awk '{ print $2}' | tr -d ',"')
+    alias=$(aws lambda list-aliases --function-name $1 --region us-west-2  | grep -i name | grep dev | awk '{ print $2}' | tr -d ',"')
     if [ "$alias" == "dev" ]
     then 
         update_lambda_alias $1 
@@ -59,7 +59,7 @@ check_lambda_alias () {
 #Create new lambda function 
 create_lambda () {    
     echo "Creating new lambda with name '$1' is in progress"     
-    aws lambda create-function --function-name $1 --runtime java8 --handler LambdaFunctionHandler.java --role arn:aws:iam::902849442700:role/LambdaFullAccess --zip-file fileb://./target/demo-1.0.0.jar --region us-west-2 --profile gunbro
+    aws lambda create-function --function-name $1 --runtime java8 --handler LambdaFunctionHandler.java --role arn:aws:iam::902849442700:role/LambdaFullAccess --zip-file fileb://./target/demo-1.0.0.jar --region us-west-2 
     if [ $? -eq 0 ]
     then            
         echo "Lambda function: '$1' has been created successfully"        
@@ -73,7 +73,7 @@ create_lambda () {
 #Update lambda function
 update_lambda () {     
     echo "Update porcess of lambda function: '$1' is in progress"      
-    aws lambda update-function-code --function-name $1 --zip-file fileb://./target/demo-1.0.0.jar --region us-west-2 --profile gunbro
+    aws lambda update-function-code --function-name $1 --zip-file fileb://./target/demo-1.0.0.jar --region us-west-2 
     if [ $? -eq 0 ]
     then             
         echo "Update process of lambda function: '$1' has been completed"            
@@ -87,7 +87,7 @@ update_lambda () {
 check_lambda_exist () {
     check_flag=0     
     echo "Searching for '$1'"       
-    var=$(aws lambda list-functions --region us-west-2 --profile gunbro | grep -i functionname | awk '{ print $2 }' | tr -d '",')
+    var=$(aws lambda list-functions --region us-west-2  | grep -i functionname | awk '{ print $2 }' | tr -d '",')
     for name in `echo $var`
     do 
 	        if [ "$name" == "$1" ]
@@ -107,8 +107,8 @@ check_lambda_exist () {
 build_lambda (){    
     echo "Building '$lambda_name' with utility jar"    
     cd $1
-    #source /etc/profile.d/maven.sh
-    #mvn package -DskipTests=true
+    source /etc/profile.d/maven.sh
+    mvn package -DskipTests=true
     if [ $? -eq 0 ]
     then        
         echo "Build of '$2' with utility jar has been completed successfully"        
