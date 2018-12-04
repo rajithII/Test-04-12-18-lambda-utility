@@ -128,6 +128,7 @@ do
     echo "$param"
     for line in `cat lambdalist.txt`
     do       
+      echo "worked"
         repo_name=$(echo "$line" | cut -d':' -f1)
         lambda_name=$(echo "$line" | cut -d':' -f2)
         if [ "$lambda_name" == "$param" ]
