@@ -125,13 +125,14 @@ IFS=','
 read -ra ADDR <<< "$Lambda"
 for param in "${ADDR[@]}" 
 do
-    echo "$param"
     for line in `cat lambdalist.txt`
     do       
       echo "worked"
+      echo "param:$param"
         repo_name=$(echo "$line" | cut -d':' -f1)
         lambda_name=$(echo "$line" | cut -d':' -f2)
         echo "repo:$repo_name"
+        echo "lambda:$lambda_name"
         if [ "$lambda_name" == "$param" ];
             then
                 echo "reponame: $repo_name"   
