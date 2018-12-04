@@ -123,7 +123,8 @@ build_lambda (){
 split () { 
 IFS=','
 read -ra ADDR <<< "$Lambda"
-for param in "${ADDR[@]}"; do
+for param in "${ADDR[@]}" 
+do
     echo "$param"
     for line in `cat lambdalist.txt`
     do       
