@@ -120,38 +120,44 @@ build_lambda (){
 }
 
 #This will accept a repo parameter from jenkins and call corresponding lambda function to build.
-split () { 
-IFS=','
-read -ra ADDR <<< "$Lambda"
-for param in "${ADDR[@]}" 
-do
-    for line in `cat lambdalist.txt`
-    do       
-      echo "worked"
-      echo "param:$param"
-        repo_name=$(echo "$line" | cut -d':' -f1)
-        lambda_name=$(echo "$line" | cut -d':' -f2)
-        echo "repo:$repo_name"
-        echo "lambda:$lambda_name"
-        if [ "$lambda_name" == "$param" ];
+
+
+split_parameter () {
+    IFS=','
+    read -ra ADDR <<< "$Lambda"
+    len=${#ADDR[@]}
+    for (( n=0; n<$len; n++ ))  
+    do  
+        echo "${ADDR[0]}"
+        for line in `cat lambdalist.txt`
+        do       
+            echo "worked"
+            echo "param:${ADDR[0]}"
+            repo_name=$(echo "$line" | cut -d':' -f1)
+            lambda_name=$(echo "$line" | cut -d':' -f2)
+            echo "repo:$repo_name"
+            echo "lambda:$lambda_name"
+            if [ "$lambda_name" == "${ADDR[0]}" ];
             then
                 echo "reponame: $repo_name"   
                 echo "lambdaname: $lambda_name"   
                 build_lambda $repo_name $lambda_name
-        fi 
-    done
-done
+            fi 
+        done
+    done  
+
 }
-split 
 
-#
-#split_parameter () {
-#    IFS=',' # Comma is set as delimiter
-#    read -ra ADDR <<< "$Lambda" # str is read into an array as tokens separated by IFS
-#    for param in "${ADDR[@]}"; do # access each element of array
-#        echo "$param"
-#        split $param
-#    done
-#}
+split_parameter
 
-#split_parameter 
+
+
+
+
+
+
+
+
+
+
+
