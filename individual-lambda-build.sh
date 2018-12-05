@@ -120,9 +120,7 @@ build_lambda (){
 }
 
 #This will accept a repo parameter from jenkins and call corresponding lambda function to build.
-
-
-split_parameter () {
+selective_build () {
     echo $Lambda | sed -n 1'p' | tr ',' '\n' | while read word; do
     for line in `cat lambdalist.txt`
         do       
@@ -138,12 +136,27 @@ split_parameter () {
 done
 }
 
-split_parameter
+build_all () {
+for line in `cat lambdalist.txt`
+do       
+    repo_name=$(echo "$line" | cut -d':' -f1)
+    lambda_name=$(echo "$line" | cut -d':' -f2)    
+    echo "reponame: $repo_name"   
+    echo "lambdaname: $lambda_name"   
+    build_lambda $repo_name $lambda_name 
+done
+}
 
+start () {
+if [ "$Name" = "$All" ]
+then
+    build_all
+else
+    selective_build
+fi
+}
 
-
-
-
+start
 
 
 
