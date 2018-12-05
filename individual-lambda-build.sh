@@ -128,15 +128,20 @@ selective_build () {
             lambda_name=$(echo "$line" | cut -d':' -f2)
             if [ "$lambda_name" == "$word" ];
             then
-                echo "reponame: $repo_name"   
-                echo "lambdaname: $lambda_name"   
+                echo "=============================================="
+                echo "Building Lambda: $lambda_name"               "|"
+                echo "=============================================="
                 build_lambda $repo_name $lambda_name
             fi 
         done
 done
 }
 
+#Build all lambda functions
 build_all () {
+echo "====================================="
+echo "Building All Lambda Functions"      "|" 
+echo "====================================="
 for line in `cat lambdalist.txt`
 do       
     repo_name=$(echo "$line" | cut -d':' -f1)
@@ -147,6 +152,7 @@ do
 done
 }
 
+#Starting the build process
 start () {
 if [ "$Name" = "$All" ]
 then
