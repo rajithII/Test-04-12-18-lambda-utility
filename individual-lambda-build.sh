@@ -123,30 +123,19 @@ build_lambda (){
 
 
 split_parameter () {
-    IFS=','
-    read -ra ADDR <<< "$Lambda"
-    len=${#ADDR[@]}
-    echo "len is: $len"
-    for (( n=0; n<$len; n++ ))  
-    do  
-        echo "The address: ${ADDR[0]}"
-        for line in `cat lambdalist.txt`
+    echo $Lambda | sed -n 1'p' | tr ',' '\n' | while read word; do
+    for line in `cat lambdalist.txt`
         do       
-            echo "worked"
-            echo "param:${ADDR[0]}"
             repo_name=$(echo "$line" | cut -d':' -f1)
             lambda_name=$(echo "$line" | cut -d':' -f2)
-            echo "repo:$repo_name"
-            echo "lambda:$lambda_name"
-            if [ "$lambda_name" == "${ADDR[0]}" ];
+            if [ "$lambda_name" == "$word" ];
             then
                 echo "reponame: $repo_name"   
                 echo "lambdaname: $lambda_name"   
                 build_lambda $repo_name $lambda_name
             fi 
         done
-    done  
-
+done
 }
 
 split_parameter
