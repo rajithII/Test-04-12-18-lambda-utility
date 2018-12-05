@@ -129,7 +129,7 @@ selective_build () {
             if [ "$lambda_name" == "$word" ];
             then
                 echo "=============================================="
-                echo "Building Lambda: $lambda_name"               "|"
+                echo "Building Lambda: $lambda_name"               
                 echo "=============================================="
                 build_lambda $repo_name $lambda_name
             fi 
@@ -140,7 +140,7 @@ done
 #Build all lambda functions
 build_all () {
 echo "====================================="
-echo "Building All Lambda Functions"      "|" 
+echo "Building All Lambda Functions"      
 echo "====================================="
 for line in `cat lambdalist.txt`
 do       
