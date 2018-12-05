@@ -126,6 +126,7 @@ split_parameter () {
     IFS=','
     read -ra ADDR <<< "$Lambda"
     len=${#ADDR[@]}
+    echo "len is: $len"
     for (( n=0; n<$len; n++ ))  
     do  
         echo "The address: ${ADDR[0]}"
