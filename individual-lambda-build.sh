@@ -128,7 +128,7 @@ split_parameter () {
     len=${#ADDR[@]}
     for (( n=0; n<$len; n++ ))  
     do  
-        echo "${ADDR[0]}"
+        echo "The address: ${ADDR[0]}"
         for line in `cat lambdalist.txt`
         do       
             echo "worked"
