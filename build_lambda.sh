@@ -1,4 +1,12 @@
-#!/bin/bash
+#!/bin/bash      
+#title           :build_lambda.sh
+#description     :This script will build all lambdas/selected lambdas.
+#author		 :rajith.v@iinerds.com
+#date            :06-12-2018
+#version         :1.0    
+#usage		 :/bin/sh build_lambda.sh
+#bash_version    :4.2.46(1)-release
+#==============================================================================
 
 #Update Lamda Alias with the new version created
 update_lambda_alias () {
