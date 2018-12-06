@@ -4,7 +4,7 @@
 #author         :rajith.v@iinerds.com
 #date           :06-12-2018
 #version        :1.0    
-#usage		:/bin/sh build_lambda.sh
+#usage          :/bin/sh build_lambda.sh
 #bash_version   :4.2.46(1)-release
 #==============================================================================
 
