@@ -67,7 +67,7 @@ check_lambda_alias () {
 #Create new lambda function 
 create_lambda () {    
     echo "Creating new lambda with name '$1' is in progress"     
-    aws lambda create-function --function-name $1 --runtime java8 --handler $2 --role arn:aws:iam::902849442700:role/LambdaFullAccess --zip-file fileb://./target/demo-1.0.0.jar --region us-east-1 
+    aws lambda create-function --function-name $1 --runtime java8 --handler $handler_name --role arn:aws:iam::902849442700:role/LambdaFullAccess --zip-file fileb://./target/demo-1.0.0.jar --region us-east-1 
     if [ $? -eq 0 ]
     then            
         echo "Lambda function: '$1' has been created successfully"        
@@ -107,7 +107,7 @@ check_lambda_exist () {
     done
     if [ $check_flag -eq 0 ]
     then
-        create_lambda $1 $3
+        create_lambda $1
     fi        
 }
 
@@ -123,7 +123,7 @@ build_lambda (){
     if [ $? -eq 0 ]
     then        
         echo "Build of '$2' with utility jar has been completed successfully"        
-        check_lambda_exist $2 $3
+        check_lambda_exist $2 
     else        
         echo "Error during the lambda build with utility jar. Please fix the error and start over!"        
     fi
@@ -143,7 +143,7 @@ selective_build () {
                 echo "=============================================="
                 echo "Building Lambda: $lambda_name"               
                 echo "=============================================="
-                build_lambda $repo_name $lambda_name $handler_name
+                build_lambda $repo_name $lambda_name
             fi 
         done
 done
@@ -161,7 +161,7 @@ do
     handler_name=$(echo "$line" | cut -d':' -f3)  
     echo "reponame: $repo_name"   
     echo "lambdaname: $lambda_name"   
-    build_lambda $repo_name $lambda_name $handler_name
+    build_lambda $repo_name $lambda_name 
 done
 }
 
