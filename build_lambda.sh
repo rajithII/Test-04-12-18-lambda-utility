@@ -17,7 +17,6 @@ update_lambda_alias () {
         version2=$(cat version2.txt | grep "Version" | awk '{ print $2 }' | tr -d '",')       
         echo "Version created successfully!. New version is: '$version2' "        
         echo "Updating lambda alias...."        
-        sleep 30s
         aws lambda update-alias --function-name $1 --name dev --function-version $version2 --region us-east-1 
         if [ $? -eq 0 ]
             then                
