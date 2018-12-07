@@ -10,6 +10,12 @@
 
 #Update Lambda Alias with the new version created
 update_lambda_alias () {
+    echo "=============================================================="
+    echo "repname: $repo_name"
+    echo "lambdaname:$lambda_name"
+    echo "handlername:$handler_name"
+    echo "=============================================================="
+
     echo "Creating new version.."
     aws lambda publish-version --function-name $1 --region us-east-1  > version2.txt
     if [ $? -eq 0 ]
