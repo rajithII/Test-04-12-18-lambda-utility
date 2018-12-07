@@ -113,6 +113,9 @@ check_lambda_exist () {
 
 #Build lambda function
 build_lambda (){    
+    echo "---------------------------------------"
+    echo "handler name : $handler_name"
+    echo "---------------------------------------"
     echo "Building '$lambda_name' with utility jar"    
     cd $1
     source /etc/profile.d/maven.sh
